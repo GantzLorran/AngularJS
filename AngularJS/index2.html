@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="" ng-app="listatelefonica">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <style>
+    .jumbotron{
+        width:400px;
+        text-align: center;
+        margin-left:auto;
+        margin-right:auto;
+        margin-top:20px;
+
+    }
+    .table{
+        margin-top:20px;
+    }
+    .form-control{
+        margin-bottom: 10px;
+    }
+    </style>
+    <title>Lista Telefonica</title>
+</head>
+<body ng-controller="listatelefonicaCtrl">
+    <div class="jumbotron">
+        <!--<h4 ng-bind="app"></h4><!--ng-bind subistitui um elemento por uma expressão-->
+        <h3>{{app}}</h3>
+        <table class="table table-striped">
+            <tr>
+                <th>Nome</th>
+                <th>Telefone</th>
+            </tr>
+            <tr ng-repeat="contato in contatos">
+                <td>{{contato.nome}}</td>
+                <td>{{contato.Telefone}}</td>
+                <!--<td ng-repeat="(key,value) in contato">
+                    {{key + ' - ' + value}}
+                </td>-->
+            </tr>
+        </table><br>
+        </hr>
+        <input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome"/><br>
+        <input class="form-control" type="text" ng-model="contato.Telefone" placeholder="Telefone"/>
+        <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)">Adicionar Contato</button>
+        {{contato}}
+    </div>
+    <script>
+        angular.module("listatelefonica", []);//Esse module é uma lista de conjuntos
+        angular.module("listatelefonica").controller("listatelefonicaCtrl", function($scope){//scope faz a ligação entre view e controles
+            $scope.app = "Lista Telefonica";
+            $scope.contatos = [
+                {nome: "Pedro", Telefone: "2199886683"},
+                {nome: "Ana", Telefone: "21986543473"},
+                {nome: "Lorran", Telefone: "21964754771"},
+                {nome: "Naruto", Telefone: "21887449021"}
+            ];
+            $scope.adicionarContato = function(contato){// essa função adiciona um novo contato na lista
+                $scope.contatos.push(angular.copy(contato));
+                delete $scope.contato;
+            };
+        });
+    </script>
+</body>
+</html>
